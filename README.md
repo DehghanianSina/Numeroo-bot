@@ -37,20 +37,26 @@ cp env.example .env
 ```
 
 5. Edit `.env` and add your Telegram bot token:
-```bash
-cp .env.example .env
 ```
-سپس توکن بات را در فایل `.env` قرار دهید.
+BOT_TOKEN=your_bot_token_here
+```
 
-6. بات را اجرا کنید:
+## Usage
+
+1. Start the bot:
 ```bash
 python bot.py
 ```
 
-## استفاده
-1. بات را در تلگرام پیدا کنید و روی دکمه Start کلیک کنید.
-2. شماره موبایل خود را به هر فرمتی که می‌خواهید وارد کنید.
-3. بات لینک تلگرام مربوط به شماره شما را ارسال خواهد کرد. 
+2. Open Telegram and start a conversation with your bot
+3. Send a phone number in any of these formats:
+   - ۰۹۱۲۱۲۳۴۵۶۷
+   - ۹۸۹۱۲۱۲۳۴۵۶۷
+   - +۹۸۹۱۲۱۲۳۴۵۶۷
+   - ۰۰۹۸۹۱۲۱۲۳۴۵۶۷
+   - +۴۸۵۷۱۰۶۱۵۷۱ (Poland)
+   - +۴۹۱۷۶۱۲۳۴۵۶۷۸ (Germany)
+   - +۴۱۲۳۴۵۶۷۸۹ (Switzerland)
 
 ## Example Output
 
