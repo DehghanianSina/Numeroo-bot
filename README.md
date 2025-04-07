@@ -1,7 +1,8 @@
 # Numeroo bot 🤖
 
 A smart Telegram bot that generates Telegram and WhatsApp links from phone numbers. 
-Detects country information and displays country flag emoji.
+Detects country information and displays country flag emoji.    
+Try it live at `@Numeroobot` on Telegram!    
 
 ## Features
 
@@ -16,7 +17,7 @@ Detects country information and displays country flag emoji.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/Numeroo-bot.git
+git clone https://github.com/DehghanianSina/Numeroo-bot.git    
 cd Numeroo-bot
 ```
 
@@ -38,7 +39,7 @@ cp env.example .env
 
 5. Edit `.env` and add your Telegram bot token:
 ```
-BOT_TOKEN=your_bot_token_here
+TELEGRAM_BOT_TOKEN=your_bot_token_here
 ```
 
 ## Usage
