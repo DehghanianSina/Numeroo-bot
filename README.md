@@ -1,4 +1,4 @@
-# Numeroo-bot 🤖
+# Numeroo bot 🤖
 
 A smart Telegram bot that generates Telegram and WhatsApp links from phone numbers. 
 Detects country information and displays country flag emoji.
