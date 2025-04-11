@@ -27,26 +27,32 @@ def normalize_phone_number(phone: str) -> str:
     phone = re.sub(r'[^\d+]', '', phone)
     
     # Handle Iranian numbers
-    if phone.startswith('98'):
-        phone = phone[2:]
-    elif phone.startswith('+98'):
-        phone = phone[3:]
+    if phone.startswith('+98'):
+        phone = '98' + phone[3:]
     elif phone.startswith('0098'):
-        phone = phone[4:]
+        phone = '98' + phone[4:]
+    elif phone.startswith('98'):
+        pass  # Already in correct format
     elif phone.startswith('0'):
         phone = '98' + phone[1:]
-    
-    # If the number starts with +, keep it
-    if phone.startswith('+'):
-        return phone[1:]  # Remove the + as it will be added in the link
+    # Handle international numbers
+    elif phone.startswith('+'):
+        phone = phone[1:]  # Remove the + for international numbers
     
     return phone
 
 def get_country_info(phone_number: str) -> tuple:
     """Get country information from phone number"""
     try:
+        # Normalize phone number first
+        normalized_phone = normalize_phone_number(phone_number)
+        
+        # Special handling for Iranian numbers
+        if normalized_phone.startswith('98'):
+            return '🇮🇷', 'Iran (IR)'
+            
         # Parse phone number
-        parsed_number = phonenumbers.parse(phone_number)
+        parsed_number = phonenumbers.parse(f"+{normalized_phone}")
         country_code = phonenumbers.region_code_for_number(parsed_number)
         
         # Get country name
@@ -281,14 +287,22 @@ async def handle_phone_number(update: Update, context: ContextTypes.DEFAULT_TYPE
         return
     
     # Get country information
-    flag_emoji, country_name = get_country_info(f"+{normalized_phone}")
+    flag_emoji, country_name = get_country_info(normalized_phone)
     
     if not country_name:
         await update.message.reply_text('کشور مربوط به این شماره موبایل شناسایی نشد.')
         return
     
-    telegram_link = f't.me/+{normalized_phone}'
-    whatsapp_link = f'wa.me/{normalized_phone}'
+    # Create links based on whether it's an Iranian number or not
+    if normalized_phone.startswith('98'):
+        # Iranian numbers
+        telegram_link = f't.me/+{normalized_phone}'
+        whatsapp_link = f'wa.me/+{normalized_phone}'
+    else:
+        # International numbers
+        telegram_link = f't.me/+{normalized_phone}'
+        whatsapp_link = f'wa.me/+{normalized_phone}'
+    
     await update.message.reply_text(
         f'{flag_emoji} {country_name}\n'
         f'{telegram_link}\n'
